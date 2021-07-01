@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import { React, useState } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import  Entry  from './Components/Entry/Entry'
 import './App.css';
 
-function App() {
+
+const App = () => {
+  const [key, setKey] = useState('');
+  const [token, setToken] = useState()
+
+  if (!token) {
+    return (
+      <main>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/'>
+              <Entry setToken={setToken} setKey={setKey} />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </main>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="App">
+      
+    </main>
   );
 }
 
