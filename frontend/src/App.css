@@ -72,3 +72,8 @@ padding: 0 1rem;
   flex-direction: row;
   justify-content: space-between;
 }
+
+.booking__form{
+  display: flex;
+  flex-direction: column;
+}

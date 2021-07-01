@@ -29,9 +29,7 @@ const Restaurants = ({ accessToken }) => {
         : await fetchRestaurants(accessToken);
       console.log(restaurants)
       setRestaurants(restaurants)
-      setTimeout(() => {
-        setIsloading(false)
-      }, 2000);
+      setIsloading(false)
     }
     puttingOnPage();
   }, [searchItem, accessToken])
