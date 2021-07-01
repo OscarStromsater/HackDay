@@ -9,7 +9,7 @@ const users = [
 const restaurants = [
   {
     id:'50d236a5-27f9-4cf7-96a1-9afb3e8b5c02',
-    name: 'mamma\'s italian',
+    name: 'Mamma\'s Italian',
     address:{
       street:"some street 49",
       postalcode: '14325',
@@ -17,7 +17,7 @@ const restaurants = [
     },
     priceRating: '$$$',
     avgRating: '4.89',
-    imgUrl: 'https://source.unsplash.com/bOICdD-Gulk/600x400',
+    imgUrl: 'https://source.unsplash.com/v4LQkXJPK0o/600x400',
     cuisine:'Italian',
   },
   {
@@ -30,7 +30,7 @@ const restaurants = [
     },
     priceRating: '$',
     avgRating: '4.10',
-    imgUrl: 'https://source.unsplash.com/v4LQkXJPK0o/600x400',
+    imgUrl: 'https://source.unsplash.com/bOICdD-Gulk/600x400',
     cuisine:'French'
   },
   {
@@ -47,11 +47,8 @@ const restaurants = [
     cuisine:'Burgers'
   }
 ]
-const bookings= {
-  '8b847b1d-175c-42a1-aaf2-e344a3211aca':[],
-  '50d236a5-27f9-4cf7-96a1-9afb3e8b5c02':[],
-  '64b64345-ac69-4de7-bcf1-b5f803c97329':[],
-}
+const bookings= [];
+
 module.exports = {
   users,
   restaurants,

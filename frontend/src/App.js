@@ -5,19 +5,18 @@ import Welcome from './Components/Page/Welcome';
 import Restaurants from './Components/Page/Restaurants/Restaurants';
 import Bookings from './Components/Page/Bookings';
 import Profile from './Components/Page/Profile';
+import NavBar from './Components/Page/NavBar';
 import './App.css';
 
 
 const App = () => {
   const [accessToken, setAccessToken] = useState('');
+  const [posting, setPosting] = useState();
   const [token, setToken] = useState()
-  const backgroundImage = {
-    backgroundImage:token || 'url(https://source.unsplash.com/HtAdwY0T194/600x1000)'
-  }
 
   if (!token) {
     return (
-      <main className='main' style={backgroundImage}>
+      <main className='main'>
         <BrowserRouter>
           <Switch>
             <Route path='/'>
@@ -32,20 +31,24 @@ const App = () => {
   return (
     <main  className="App">
       <BrowserRouter>
+        
           <Switch>
             <Route exact path='/'>
               <Welcome />
             </Route>
             <Route exact path='/restaurants'>
-              <Restaurants accessToken={accessToken}/>
+              <Restaurants accessToken={accessToken}
+              setPost={setPosting} posting={posting}/>
             </Route>
             <Route exact path='/bookings'>
-              <Bookings accessToken={accessToken}/>
+              <Bookings accessToken={accessToken}
+              setPost={setPosting} posting={posting}/>
             </Route>
             <Route exact path='/profile'>
               <Profile accessToken={accessToken}/>
             </Route>
           </Switch>
+          <NavBar/>
         </BrowserRouter>
     </main>
   );

@@ -42,19 +42,45 @@ app.post('/api/bookings', authenticateToken, (req,res) => {
     },
     day,
   }
-  const index = bookings[restoId].findIndex(book => (
+  const index = bookings.findIndex(book => (
     book.customerInfo.userId === booking.customerInfo.userId
-     && book.day === booking.day
+     && book.day === booking.day && book.restoId === booking.restoId
   ))
   if (index !== -1) {
     return res.json({message:'This booking already exists'})
   }
-  bookings[restoId].push(booking);
+  bookings.push(booking);
   return res.json({message:'Your booking is Complete'})
 })
 
-app.get('/api/users/bookings',authenticateToken, (req, res) => {
+app.get('/api/bookings', authenticateToken, (req, res) => {
+  const {id} = req.user;
+  const userBookings = bookings.filter(bookin => (
+    bookin.customerInfo.userId === id
+  ))
+  if(userBookings.length === 0) return res.json({message:"You have no Bookings"})
+  return res.json(userBookings)
+})
 
+app.put('/api/bookings/:id',authenticateToken, (req, res) => {
+  const updatedBooking = req.body;
+  const {bookingRef} = updatedBooking;
+  const index = bookings[restoId].findIndex(book => book.bookingRef === bookingRef);
+  bookings.splice([index], 1, updatedBooking)
+  return res.json({message:'booking Updated'})
+})
+
+app.delete('/api/bookings/:id', authenticateToken, (req, res) => {
+  const {id} = req.params;
+  console.log(id)
+  const index = bookings.findIndex(book => book.bookingRef === id);
+  console.log(index)
+  if(index !== -1) {
+    bookings.splice([index], 1)
+    return res.json({message:'booking Deleted'});
+  }
+  return res.json({message: "already deleted"});
+  
 })
 
 app.post('/api/users', async (req, res) => {
@@ -100,6 +126,6 @@ app.post('/api/users/login', async (req, res) => {
   }
 })
 
-
+IP = process.env.IP;
 PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`running on ${PORT}`));
+app.listen(PORT,IP, () => console.log(`running on bzzt bzzt`));

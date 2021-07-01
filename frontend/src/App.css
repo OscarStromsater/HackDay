@@ -2,16 +2,16 @@ button{
   background-color: transparent;
   border:none;
 }
-html,
+
 body{
-height:100vh;
+  padding-bottom: 3rem;
 }
 
 .main{
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
+
 .login{
   width: 80vw;
   border-top: none;
@@ -19,6 +19,7 @@ height:100vh;
   align-self: center;
   margin-top: 25vh;
 }
+
 
 .login__fieldset {
   border: none;
@@ -71,6 +72,22 @@ padding: 0 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.navbar__links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  
+}
+
+.navbar {
+ position: fixed;
+ bottom: 0;
+ width: 100%;
+ height: 3rem;
+ background-color: slategray;
+
 }
 
 .booking__form{

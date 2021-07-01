@@ -21,17 +21,12 @@ const Restaurants = ({ accessToken }) => {
   const [isLoading, setIsloading] = useState(true)
   const [searchItem, setSearchItem] = useState('')
 
-
-
   useEffect(() => {
     const puttingOnPage = async () => {
       const restaurants = searchItem ? await fetchRestaurants(accessToken, searchItem)
         : await fetchRestaurants(accessToken);
-      console.log(restaurants)
       setRestaurants(restaurants)
-      setTimeout(() => {
-        setIsloading(false)
-      }, 2500); 
+      setIsloading(false);
     }
     puttingOnPage();
   }, [searchItem, accessToken])

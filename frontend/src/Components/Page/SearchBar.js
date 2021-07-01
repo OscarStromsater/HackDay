@@ -14,7 +14,7 @@ const SearchBar = ({ setSearchItem}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="searchbar" onSubmit={handleSubmit}>
       <label htmlFor="searchfield">
         <input type="text" name="searchfield" value={searchQuery}
          placeholder="search for what you feel like..."
