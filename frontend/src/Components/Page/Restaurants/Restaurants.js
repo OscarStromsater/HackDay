@@ -3,11 +3,11 @@ import SearchBar from "../SearchBar";
 import RestaurantCard from "./RestaurantCard";
 
 
-const fetchRestaurants = async (accessCode,search = 'none') => {
-  const path = search === 'none' ? 'http://localhost:3001/restaurants'
-    : `http://localhost:3001/restaurants/${search}`;
+const fetchRestaurants = async (accessCode, search = 'none') => {
+  const path = search === 'none' ? 'http://localhost:3001/api/restaurants'
+    : `http://localhost:3001/api/restaurants/${search}`;
   const restos = await fetch(path, {
-    method:'GET',
+    method: 'GET',
     headers: {
       'authorization': `Bearer ${accessCode}`
     }
@@ -21,7 +21,7 @@ const Restaurants = ({ accessToken }) => {
   const [isLoading, setIsloading] = useState(true)
   const [searchItem, setSearchItem] = useState('')
 
-  
+
 
   useEffect(() => {
     const puttingOnPage = async () => {
@@ -29,17 +29,19 @@ const Restaurants = ({ accessToken }) => {
         : await fetchRestaurants(accessToken);
       console.log(restaurants)
       setRestaurants(restaurants)
-      setIsloading(false)
+      setTimeout(() => {
+        setIsloading(false)
+      }, 2500); 
     }
     puttingOnPage();
   }, [searchItem, accessToken])
 
   return (
-    <div>
+    <div className="rest0">
       <SearchBar setSearchItem={setSearchItem} searchItem={searchItem} />
-      <h3>Restaurants in your Area</h3>
+      <h3 className="resto__title">Restaurants in your Area</h3>
       {isLoading ? <p>Restaurants in your area are loading</p> : restaurants.map(restaurant => {
-        return <RestaurantCard key={restaurant.id} restaurant={restaurant}/>
+        return <RestaurantCard key={restaurant.id} restaurant={restaurant} accessToken={accessToken} />
       })
       }
 

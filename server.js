@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const uuid = require('uuid').v4
 const cors = require('cors');
 const { authenticateToken } = require('./middleware')
-const {users,restaurants} = require('./db');
+const {users,restaurants,bookings} = require('./db');
 const app = express();
 
 app.use(express.json());
@@ -15,20 +15,49 @@ app.get('/users', (req, res) => {
   res.json(users);
 })
 
-
-app.get('/restaurants/:id', authenticateToken, (req, res) => {
+app.get('/api/restaurants/:id', authenticateToken, (req, res) => {
   const searchTerm = new RegExp(`${req.params.id}`, 'i');
   const search = restaurants.filter(restau => searchTerm.test(restau.cuisine))
   res.json(search);
 });
 
-app.get('/restaurants', authenticateToken, (req, res) => {
+app.get('/api/restaurants', authenticateToken, (req, res) => {
   res.json(restaurants)
 })
 
+app.post('/api/bookings', authenticateToken, (req,res) => {
+  const { id, name, number, startDate, persons } = req.body;
+  const userId = req.user.id;
+  const restoId = id;
+  const day = startDate.slice(0,16)
+  const bookingRef = uuid();
+  const booking = {
+    bookingRef,
+    restoId,
+    persons,
+    customerInfo: {
+      userId,
+      name,
+      number
+    },
+    day,
+  }
+  const index = bookings[restoId].findIndex(book => (
+    book.customerInfo.userId === booking.customerInfo.userId
+     && book.day === booking.day
+  ))
+  if (index !== -1) {
+    return res.json({message:'This booking already exists'})
+  }
+  bookings[restoId].push(booking);
+  return res.json({message:'Your booking is Complete'})
+})
 
+app.get('/api/users/bookings',authenticateToken, (req, res) => {
 
-app.post('/users', async (req, res) => {
+})
+
+app.post('/api/users', async (req, res) => {
   const { password, username } = req.body;
   const id = uuid();
   const index = users.findIndex(user => user.username === username)
@@ -45,7 +74,7 @@ app.post('/users', async (req, res) => {
   return res.status(400).json({ message: 'Username already taken' });
 })
 
-app.post('/users/login', async (req, res) => {
+app.post('/api/users/login', async (req, res) => {
   const {password, username} = req.body;
   const index = users.findIndex(user => user.username === username)
   if (index === -1) {
@@ -53,13 +82,11 @@ app.post('/users/login', async (req, res) => {
   }
   try {
     if (await bcrypt.compare(password, users[index].password)) {
-      console.log('hello')
       const accessToken = jwt.sign(
         {
           username: users[index].username,
-          id:users[index].username
+          id:users[index].id,
         }, process.env.ACCESS_TOKEN_SECRET)
-        console.log('here we are')
       res.json({ role: 'customer', accessToken: accessToken })
     } else {
 

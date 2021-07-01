@@ -4,31 +4,62 @@ import "react-datepicker/dist/react-datepicker.css";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 
-
-const Booking = ({ id }) => {
-
+const Booking = ({ id, accessToken }) => {
   const [startDate, setStartDate] = useState(
     setHours(setMinutes(new Date(), '00'), '12')
   );
   const [name, setName] = useState('');
   const [number, setNumber] = useState('')
+  const [persons, setPersons] = useState(2);
+  const [response, setResponse] = useState('');
   const nameHandle = e => setName(e.target.value);
   const numberHandle = e => setNumber(e.target.value);
 
   const handleBooking = async e => {
     e.preventDefault();
-
+    setResponse('');
+    const booking = {
+      id,
+      name,
+      number,
+      persons,
+      startDate
+    }
+    if(booking.name.length < 1) return setResponse('Please provide a Name');
+    if(/[a-z]/i.test(booking.number)|| booking.number.length < 8){
+      return setResponse('Only numbers & minimum 8 digits in phonenumber');
+    } 
+    const data = await fetch('http://localhost:3001/api/bookings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify(booking)
+    })
+    const result = await data.json();
+    setResponse(result.message);
+    setTimeout(setResponse,1500, '');
   }
 
   return (
-    <form className="booking__form">
-     <h4>Please Enter Your details to make a Reservation:</h4>
+    <form className="booking__form" onSubmit={handleBooking}>
+      <h4>Please Enter Your details to make a Reservation:</h4>
+      {response && <h4>{response}</h4>}
       <label htmlFor="name">Full name</label>
       <input type="text" name="name" value={name}
         onChange={nameHandle} />
       <label htmlFor="phone">Phone number</label>
-      <input type="phonenumber" name="phone" value={number}
+      <input type="tel" name="phone" value={number}
         onChange={numberHandle} />
+      <label htmlFor="persons">How many will eat:</label>
+      <select onChange={setPersons} selected={persons}>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select>
       <label htmlFor='datepicker'>Date and time:</label>
       <DatePicker name="datepicker"
         selected={startDate}
@@ -39,6 +70,7 @@ const Booking = ({ id }) => {
         dateFormat="dd/MM/yyyy HH:mm"
         timeFormat="HH:mm"
       />
+      <input type="submit" value="Make Booking" />
     </form>)
 }
 export default Booking;

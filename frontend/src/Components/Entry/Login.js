@@ -14,7 +14,7 @@ const Login = ({ loging,setToken, setAccessToken, setLoging, setEntryMessage }) 
     const path = loging ? 'users/login' : 'users/';
     const credentials = { username, password }
     if ((!loging && password === checkPass) || loging) {
-      const attempt = await fetch(`http://localhost:3001/${path}`, {
+      const attempt = await fetch(`http://localhost:3001/api/${path}`, {
         method: 'POST',
         headers: {
           'content-Type': 'application/json'

@@ -50,6 +50,7 @@ const restaurants = [
 const bookings= {
   '8b847b1d-175c-42a1-aaf2-e344a3211aca':[],
   '50d236a5-27f9-4cf7-96a1-9afb3e8b5c02':[],
+  '64b64345-ac69-4de7-bcf1-b5f803c97329':[],
 }
 module.exports = {
   users,
