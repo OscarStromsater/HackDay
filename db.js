@@ -18,7 +18,7 @@ const restaurants = [
     priceRating: '$$$',
     avgRating: '4.89',
     imgUrl: 'https://source.unsplash.com/bOICdD-Gulk/600x400',
-    cuisine:'Italian'
+    cuisine:'Italian',
   },
   {
     id:'8b847b1d-175c-42a1-aaf2-e344a3211aca',

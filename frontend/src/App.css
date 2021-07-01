@@ -67,8 +67,8 @@ padding: 0 1rem;
   align-items: center;
   justify-content: space-between;
 }
-.card__accordion {
+.accordion__holder {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }

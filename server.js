@@ -15,9 +15,18 @@ app.get('/users', (req, res) => {
   res.json(users);
 })
 
+
+app.get('/restaurants/:id', authenticateToken, (req, res) => {
+  const searchTerm = new RegExp(`${req.params.id}`, 'i');
+  const search = restaurants.filter(restau => searchTerm.test(restau.cuisine))
+  res.json(search);
+});
+
 app.get('/restaurants', authenticateToken, (req, res) => {
   res.json(restaurants)
 })
+
+
 
 app.post('/users', async (req, res) => {
   const { password, username } = req.body;
@@ -44,11 +53,13 @@ app.post('/users/login', async (req, res) => {
   }
   try {
     if (await bcrypt.compare(password, users[index].password)) {
+      console.log('hello')
       const accessToken = jwt.sign(
         {
           username: users[index].username,
           id:users[index].username
         }, process.env.ACCESS_TOKEN_SECRET)
+        console.log('here we are')
       res.json({ role: 'customer', accessToken: accessToken })
     } else {
 

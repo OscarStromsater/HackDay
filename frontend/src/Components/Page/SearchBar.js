@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 
 const SearchBar = ({ setSearchItem}) => {
   const [searchQuery, setSearchQuery] = useState('')
-  const searching = e => setSearchQuery(e.target.value);
+  const searching = e => {
+    setSearchQuery(e.target.value);
+    setSearchItem(e.target.value);
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
     setSearchItem(searchQuery)
     setSearchQuery('')
-    
   }
 
   return (
