@@ -3,20 +3,25 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import  Entry  from './Components/Entry/Entry'
 import Welcome from './Components/Page/Welcome';
 import Restaurants from './Components/Page/Restaurants/Restaurants';
+import Bookings from './Components/Page/Bookings';
+import Profile from './Components/Page/Profile';
 import './App.css';
 
 
 const App = () => {
-  const [key, setKey] = useState('');
+  const [accessToken, setAccessToken] = useState('');
   const [token, setToken] = useState()
+  const backgroundImage = {
+    backgroundImage:token || 'url(https://source.unsplash.com/HtAdwY0T194/600x1000)'
+  }
 
   if (!token) {
     return (
-      <main>
+      <main className='main' style={backgroundImage}>
         <BrowserRouter>
           <Switch>
             <Route path='/'>
-              <Entry setToken={setToken} setKey={setKey} />
+              <Entry setToken={setToken} setAccessToken={setAccessToken} />
             </Route>
           </Switch>
         </BrowserRouter>
@@ -25,20 +30,20 @@ const App = () => {
   }
 
   return (
-    <main className="App">
+    <main  className="App">
       <BrowserRouter>
           <Switch>
             <Route exact path='/'>
               <Welcome />
             </Route>
             <Route exact path='/restaurants'>
-              <Restaurants />
+              <Restaurants accessToken={accessToken}/>
             </Route>
             <Route exact path='/bookings'>
-              <Bookings />
+              <Bookings accessToken={accessToken}/>
             </Route>
             <Route exact path='/profile'>
-              <Profile />
+              <Profile accessToken={accessToken}/>
             </Route>
           </Switch>
         </BrowserRouter>

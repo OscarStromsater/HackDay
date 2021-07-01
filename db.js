@@ -1,4 +1,10 @@
-const users = []
+const users = [
+  {
+    "id": "a05baed4-d6a0-461b-85ae-f0bdbc7b8518",
+    "username": "test",
+    "password": "$2b$10$K0zRCHIbLfHqf8h//DXRJ.QezblPvx69FyUDgVfmcMh1E98cEjiZC"
+}
+]
 
 const restaurants = [
   {
@@ -11,7 +17,7 @@ const restaurants = [
     },
     priceRating: '$$$',
     avgRating: '4.89',
-    imgUrl: 'https://images.unsplash.com/photo-1534425582704-65e021820688?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+    imgUrl: 'https://source.unsplash.com/bOICdD-Gulk/600x400',
     cuisine:'Italian'
   },
   {
@@ -24,7 +30,7 @@ const restaurants = [
     },
     priceRating: '$',
     avgRating: '4.10',
-    imgUrl: 'https://images.unsplash.com/photo-1602833334025-5019f046b8f7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1567&q=80',
+    imgUrl: 'https://source.unsplash.com/v4LQkXJPK0o/600x400',
     cuisine:'French'
   },
   {
@@ -37,7 +43,7 @@ const restaurants = [
     },
     priceRating: '$',
     avgRating: '4.10',
-    imgUrl: 'https://images.unsplash.com/photo-1602833334025-5019f046b8f7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1567&q=80',
+    imgUrl: 'https://source.unsplash.com/OcMKDx5y11A/600x400',
     cuisine:'Burgers'
   }
 ]

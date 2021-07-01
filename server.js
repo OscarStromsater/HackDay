@@ -15,6 +15,10 @@ app.get('/users', (req, res) => {
   res.json(users);
 })
 
+app.get('/restaurants', authenticateToken, (req, res) => {
+  res.json(restaurants)
+})
+
 app.post('/users', async (req, res) => {
   const { password, username } = req.body;
   const id = uuid();
@@ -45,7 +49,6 @@ app.post('/users/login', async (req, res) => {
           username: users[index].username,
           id:users[index].username
         }, process.env.ACCESS_TOKEN_SECRET)
-
       res.json({ role: 'customer', accessToken: accessToken })
     } else {
 

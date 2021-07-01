@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-const Login = ({ loging,setToken, setKey, setLoging, setEntryMessage }) => {
+const Login = ({ loging,setToken, setAccessToken, setLoging, setEntryMessage }) => {
   const [submitting, setSubmitting] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +29,7 @@ const Login = ({ loging,setToken, setKey, setLoging, setEntryMessage }) => {
          return setLoging(true);
       }
       if (data.role){
-        setKey(data.actionToken);
+        setAccessToken(data.accessToken);
         return setToken({role:'customer'});
       }
       setMessage(data.message);
@@ -45,34 +45,32 @@ const Login = ({ loging,setToken, setKey, setLoging, setEntryMessage }) => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset disabled={submitting}>
+    <form className="login-form"onSubmit={handleSubmit}>
+      <fieldset className="login__fieldset" disabled={submitting}>
         {message && <h2>{message}</h2>}
-        <label htmlFor="username">
-          Username:
+        <label className="login__label" htmlFor="username">
+          Username:</label>
           <input type="text"
             name="username" value={username}
             onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <label htmlFor="password">
-          Password:
+        
+
+        <label className="login__label" htmlFor="password">
+          Password:</label>
           <input type="password"
             name="password" value={password}
             onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        {loging || <label htmlFor="checkPass">
+        
+
+        {loging || <label className="login__label" htmlFor="checkPass">
           Re-enter Password:
           <input type="password"
             name="checkPass" value={checkPass}
             onChange={(e) => setCheckPass(e.target.value)} />
-        </label>}
+            </label>}
         {loging ?
-          <label htmlFor="submit">
             <input name="submit" type="submit" value="Log in" />
-          </label>
-          : <label htmlFor="signup">
-            <input name="signup" type="submit" value="Create account" />
-          </label>}
+          : <input name="signup" type="submit" value="Create account" />}
       </fieldset>
     </form>
   )

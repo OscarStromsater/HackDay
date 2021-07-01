@@ -1,9 +1,11 @@
 import React from 'react'
 
-export const Bookings = () => {
+const Bookings = () => {
   return (
     <div>
-      
+      <h2>Here are your bookings!</h2>
     </div>
   )
 }
+
+export default Bookings;
