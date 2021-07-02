@@ -32,14 +32,17 @@ const Restaurants = ({ accessToken }) => {
   }, [searchItem, accessToken])
 
   return (
-    <div className="rest0">
-      <SearchBar setSearchItem={setSearchItem} searchItem={searchItem} />
+    <div className="resto">
+      <header className="search__holder">
+        <SearchBar className='search' setSearchItem={setSearchItem} searchItem={searchItem} />
+      </header>
       <h3 className="resto__title">Restaurants in your Area</h3>
+      <div className="restos">
       {isLoading ? <p>Restaurants in your area are loading</p> : restaurants.map(restaurant => {
-        return <RestaurantCard key={restaurant.id} restaurant={restaurant} accessToken={accessToken} />
+        return <RestaurantCard className="resto__card" key={restaurant.id} restaurant={restaurant} accessToken={accessToken} />
       })
       }
-
+      </div>
     </div>
   )
 }

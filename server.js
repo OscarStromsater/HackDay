@@ -11,10 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/users', (req, res) => {
-  res.json(users);
-})
-
 app.get('/api/restaurants/:id', authenticateToken, (req, res) => {
   const searchTerm = new RegExp(`${req.params.id}`, 'i');
   const search = restaurants.filter(restau => searchTerm.test(restau.cuisine))
@@ -57,15 +53,19 @@ app.get('/api/bookings', authenticateToken, (req, res) => {
   const {id} = req.user;
   const userBookings = bookings.filter(bookin => (
     bookin.customerInfo.userId === id
-  ))
-  if(userBookings.length === 0) return res.json({message:"You have no Bookings"})
-  return res.json(userBookings)
+  )).sort((a, b) => {
+    if(a.day < b.day) return -1;
+    if(a.day > b.day) return 1;
+    return 0;
+  });
+  if(userBookings.length === 0) return res.json({message:"You have no Bookings"});
+  return res.json(userBookings);
 })
 
-app.put('/api/bookings/:id',authenticateToken, (req, res) => {
+app.put('/api/bookings/:id', authenticateToken, (req, res) => {
   const updatedBooking = req.body;
   const {bookingRef} = updatedBooking;
-  const index = bookings[restoId].findIndex(book => book.bookingRef === bookingRef);
+  const index = bookings.findIndex(book => book.bookingRef === bookingRef);
   bookings.splice([index], 1, updatedBooking)
   return res.json({message:'booking Updated'})
 })

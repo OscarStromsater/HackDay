@@ -4,7 +4,8 @@ import EditBooking from './EditBooking'
 const BookingCard = ({ setUpdated, booking, accessToken }) => {
   const { day, restoId, bookingRef,persons } = booking;
   const date = day.slice(0, 10);
-  const time = day.slice(11, 16);
+  const hours = parseInt(day.slice(11, 13),10) + 2 ;
+  const time = `${hours.toString()}${day.slice(13,16)}`
   let restaurant = ''
   switch (restoId) {
     case '64b64345-ac69-4de7-bcf1-b5f803c97329':
@@ -41,7 +42,7 @@ const BookingCard = ({ setUpdated, booking, accessToken }) => {
   }
 
   return (
-    <section>
+    <section className="booking__card">
       <div style={hidden}>
         <section>
           <h5>{date}</h5>
@@ -50,12 +51,13 @@ const BookingCard = ({ setUpdated, booking, accessToken }) => {
           <p>People: {persons}</p>
         </section>
         <section>
-          <button onClick={toggleHidden}>Edit Booking</button>
-          <button onClick={deleteBooking}>Delete Booking</button>
+          <button className="card__button btn--buy booking__btn" onClick={toggleHidden}>Edit Booking</button>
+          <button className="card__button btn--view booking__btn"onClick={deleteBooking}>Delete Booking</button>
         </section>
       </div>
       <div style={hiddenBooking}>
-        <EditBooking booking={booking} setEditing={setEditing} setUpdated={setUpdated} />
+        <EditBooking booking={booking} accessToken={accessToken}
+         setEditing={setEditing} setUpdated={setUpdated} />
       </div>
     </section>
   )

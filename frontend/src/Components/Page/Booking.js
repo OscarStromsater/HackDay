@@ -17,6 +17,7 @@ const Booking = ({ id, accessToken }) => {
   const numberHandle = e => setNumber(e.target.value);
 
   const handleBooking = async e => {
+    setResponse('');
     console.log()
     e.preventDefault();
     setResponse('');
@@ -40,7 +41,7 @@ const Booking = ({ id, accessToken }) => {
       })
       const result = await data.json();
     setResponse(result.message);
-    setTimeout(setResponse,1500, '');
+    
   }
 
   return (
@@ -71,7 +72,7 @@ const Booking = ({ id, accessToken }) => {
         dateFormat="dd/MM/yyyy HH:mm"
         timeFormat="HH:mm"
       />
-      <input type="submit" value="Make Booking" />
+      <input className="booking__submit" type="submit" value="Make Booking" />
     </form>)
 }
 export default Booking;

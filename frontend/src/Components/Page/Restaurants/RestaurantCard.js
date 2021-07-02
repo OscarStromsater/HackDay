@@ -17,7 +17,7 @@ const RestaurantCard = ({ restaurant, accessToken }) => {
         <div className="card__quickinfo">
           <h4>{name}</h4>
           <p>Rating: {avgRating}/5</p>
-          <div>
+          <div className="buttons">
             <button className="btn card__button btn--buy" onClick={toggleInfo}>More info</button>
             <button className="btn card__button btn--view" onClick={toggleBooking}>Book now</button>
           </div>

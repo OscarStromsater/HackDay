@@ -1,9 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-const Profile = () => {
+const Profile = ({setLogOut}) => {
+  useEffect(() => {
+    setLogOut(true);
+    return ()=> setLogOut(false);
+  },[setLogOut])
+
   return (
-    <form>
-      <input type="submit" value="logout" />
+    <form className="logout__form">
+      <input className="logout__button btn" type="submit" value="logout" />
     </form>
   )
 }

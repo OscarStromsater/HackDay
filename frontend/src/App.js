@@ -12,11 +12,23 @@ import './App.css';
 const App = () => {
   const [accessToken, setAccessToken] = useState('');
   const [posting, setPosting] = useState();
-  const [token, setToken] = useState()
+  const [token, setToken] = useState();
+  const [welcome, setWelcome] = useState(false);
+  const [logOut, setLogOut] = useState(false);
+  const [orders, setOrders] = useState(false);
+  const loginBackground = {
+    backgroundImage: "url(https://source.unsplash.com/-eKZLpj7U0E/)"
+  }
+  const loggedinBackground = {
+    backgroundImage: welcome ? "url(https://source.unsplash.com/fdlZBWIP0aM/)":
+      logOut ? "url(https://source.unsplash.com/awj7sRviVXo)" :
+      orders ? "url(https://source.unsplash.com/ZuIDLSz3XLg)":
+      'none'
+  }
 
   if (!token) {
     return (
-      <main className='main'>
+      <main className='main' style={loginBackground}>
         <BrowserRouter>
           <Switch>
             <Route path='/'>
@@ -29,12 +41,12 @@ const App = () => {
   }
 
   return (
-    <main  className="App">
+    <main  className="main" style={loggedinBackground}>
       <BrowserRouter>
         
           <Switch>
             <Route exact path='/'>
-              <Welcome />
+              <Welcome setWelcome={setWelcome} />
             </Route>
             <Route exact path='/restaurants'>
               <Restaurants accessToken={accessToken}
@@ -42,10 +54,10 @@ const App = () => {
             </Route>
             <Route exact path='/bookings'>
               <Bookings accessToken={accessToken}
-              setPost={setPosting} posting={posting}/>
+              setPost={setPosting} posting={posting} setOrders={setOrders}/>
             </Route>
             <Route exact path='/profile'>
-              <Profile accessToken={accessToken}/>
+              <Profile setLogOut={setLogOut}/>
             </Route>
           </Switch>
           <NavBar/>

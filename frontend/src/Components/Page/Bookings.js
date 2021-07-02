@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react"
 import BookingCard from "./BookingCard";
 
 
-const Bookings = ({ accessToken }) => {
+const Bookings = ({ accessToken, setOrders }) => {
   const [bookings, setBookings] = useState([])
   const [updated, setUpdated] = useState(false);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    setOrders(true);
+    return () => setOrders(false);
+  },[setOrders])
 
   useEffect(() => {
     const fetchBookings = async() => {
@@ -29,13 +34,15 @@ const Bookings = ({ accessToken }) => {
   },[updated, accessToken])
 
   return (
-    <div>
-      <h2>Here are your bookings!</h2>
+    <div className="bookings">
+      <h2 className="booking__title">Here are your bookings!</h2>
+      <section className="bookings__holder">
       {message && <p>{message}</p>}
       {bookings && bookings.map(booking => {
         return (<BookingCard key={booking.bookingRef} accessToken={accessToken} booking={booking}
            setUpdated={setUpdated}/>)
       })}
+      </section>
     </div>
   )
 }

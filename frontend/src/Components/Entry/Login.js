@@ -48,29 +48,30 @@ const Login = ({ loging,setToken, setAccessToken, setLoging, setEntryMessage }) 
     <form className="login-form"onSubmit={handleSubmit}>
       <fieldset className="login__fieldset" disabled={submitting}>
         {message && <h2>{message}</h2>}
-        <label className="login__label" htmlFor="username">
-          Username:</label>
-          <input type="text"
+        <label className="login__label" htmlFor="username"></label>
+          <input 
+          type="text" className="login__input"
+          placeholder="Username"
             name="username" value={username}
             onChange={(e) => setUsername(e.target.value)} />
         
 
-        <label className="login__label" htmlFor="password">
-          Password:</label>
+        <label className="login__label" htmlFor="password"></label>
           <input type="password"
+            placeholder="Password" className="login__input"
             name="password" value={password}
             onChange={(e) => setPassword(e.target.value)} />
         
 
-        {loging || <label className="login__label" htmlFor="checkPass">
-          Re-enter Password:
-          <input type="password"
+        {loging || <><label className="login__label" htmlFor="checkPass"></label>
+          <input type="password" className="login__input"
+            placeholder ="Reenter you password"
             name="checkPass" value={checkPass}
-            onChange={(e) => setCheckPass(e.target.value)} />
-            </label>}
+            onChange={(e) => setCheckPass(e.target.value)} /></>
+            }
         {loging ?
-            <input name="submit" type="submit" value="Log in" />
-          : <input name="signup" type="submit" value="Create account" />}
+            <input className="login__button" name="submit" type="submit" value="Log in" />
+          : <input className="login__button" name="signup" type="submit" value="Create account" />}
       </fieldset>
     </form>
   )

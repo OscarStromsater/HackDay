@@ -21,19 +21,21 @@ const EditBooking = ({ booking, accessToken, setUpdated, setEditing }) => {
   const handleBooking = async e => {
     e.preventDefault();
     setResponse('');
-    console.log(startDate.toString())
+    console.log(persons)
     const updatedBooking = booking
-    if(timeUpdate) return updatedBooking.day = startDate;
-    if(personUpdate) return updatedBooking.persons = persons
+    if(timeUpdate) updatedBooking.day = startDate.toISOString().slice(0,16);
+    if(personUpdate) updatedBooking.persons = persons
+    console.log(updatedBooking);
     const data = await fetch(`http://localhost:3001/api/bookings/${bookingRef}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'authorization': `Bearer ${accessToken}`
+          'authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(updatedBooking)
       })
       const result = await data.json();
+      console.log(result.message);
     setResponse(result.message);
     setUpdated(true);
   }
@@ -45,7 +47,9 @@ const EditBooking = ({ booking, accessToken, setUpdated, setEditing }) => {
       <h4>Edit your booking:</h4>
       {response && <h4>{response}</h4>}
       <label htmlFor="persons">How many will eat:</label>
-      <input type="checkbox" onClick={personToggle}/>
+      <label htmlFor="checkPerson">
+      <input name="checkPerson"type="checkbox" onClick={personToggle}/>
+      check if updating persons</label>
       <select onChange={handlePersons} selected={persons}>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -54,7 +58,10 @@ const EditBooking = ({ booking, accessToken, setUpdated, setEditing }) => {
         <option value="6">6</option>
       </select>
       <label htmlFor='datepicker'>Date and time:</label>
-      <input type="checkbox" onClick={timeToggle}/>
+      <label htmlFor="checkTime">
+      <input name="checkTime" type="checkbox" onClick={timeToggle}/>
+      check if updating date or time
+      </label>
       <DatePicker name="datepicker"
         selected={startDate}
         onChange={(date) => setStartDate(date)}

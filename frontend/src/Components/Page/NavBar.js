@@ -4,20 +4,19 @@ import { Link } from 'react-router-dom'
 const NavBar = () => {
   return (
     <nav className="navbar">
-      <ul className="navbar__links">
-        <li className="navbar__link">
+
+        <li className="navbar__link navbar__link--first">
           <Link to='/'>Home</Link>
         </li>
         <li className="navbar__link">
-          <Link to='/restaurants'>Restaurants</Link>
+          <Link className="link" to='/restaurants'>Restaurants</Link>
         </li>
         <li className="navbar__link">
-          <Link to='/bookings'>Bookings</Link>
+          <Link className="link" to='/bookings'>Bookings</Link>
         </li>
         <li className="navbar__link">
-          <Link to='/profile'>Profile</Link>
+          <Link className="link" to='/profile'>Log out</Link>
         </li>
-      </ul>
     </nav>
   )
 }

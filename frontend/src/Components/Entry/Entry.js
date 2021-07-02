@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import Login from './Login';
 
-const Entry = ({setToken, setAccessToken}) => {
+const Entry = ({ setToken, setAccessToken }) => {
   const [loging, setLoging] = useState(true);
   const [entryMessage, setEntryMessage] = useState(false);
 
@@ -10,22 +10,28 @@ const Entry = ({setToken, setAccessToken}) => {
 
   return (
     <>
-      <section className="login">
+
+      <section className="login__holder">
+        <header className="login__title">
+          <h1>RestauFind</h1>
+        </header>
+        <div className="login">
         <div className="switch">
           <button className="switch__login__btn btn"
-          onClick={logClick}>
+            onClick={logClick}>
             Log in
           </button>
           <button className="switch__signup btn"
-          onClick={signClick}>
+            onClick={signClick}>
             Create account
           </button>
         </div>
         <div className="login__holder">
           {entryMessage && <h2>User Created, please login</h2>}
           <Login loging={loging} setLoging={setLoging}
-          setAccessToken={setAccessToken}
-           setEntryMessage={setEntryMessage} setToken={setToken}/>
+            setAccessToken={setAccessToken}
+            setEntryMessage={setEntryMessage} setToken={setToken} />
+        </div>
         </div>
       </section>
 
