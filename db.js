@@ -6,6 +6,7 @@ const users = [
 }
 ]
 
+const newVariables = [1,2,3,4]
 const restaurants = [
   {
     id:'50d236a5-27f9-4cf7-96a1-9afb3e8b5c02',
